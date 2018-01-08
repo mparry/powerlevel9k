@@ -302,7 +302,7 @@ prompt_anaconda() {
   # Depending on the conda version, either might be set. This
   # variant works even if both are set.
   local _path=$CONDA_ENV_PATH$CONDA_PREFIX
-  if ! [ -z "$_path" ]; then
+  if [[ ! -z "$_path" && $CONDA_PREFIX =~ .+/envs/.+ ]]; then
     # config - can be overwritten in users' zshrc file.
     set_default POWERLEVEL9K_ANACONDA_LEFT_DELIMITER "("
     set_default POWERLEVEL9K_ANACONDA_RIGHT_DELIMITER ")"
@@ -1558,15 +1558,15 @@ powerlevel9k_vcs_init() {
     'untracked'     'green'
   )
 
-  VCS_CHANGESET_PREFIX=''
+  VCS_CHANGESET_SUFFIX=''
   if [[ "$POWERLEVEL9K_SHOW_CHANGESET" == true ]]; then
-    VCS_CHANGESET_PREFIX="$(print_icon 'VCS_COMMIT_ICON')%0.$POWERLEVEL9K_VCS_INTERNAL_HASH_LENGTH""i "
+    VCS_CHANGESET_SUFFIX="$(print_icon 'VCS_COMMIT_ICON')%0.$POWERLEVEL9K_VCS_INTERNAL_HASH_LENGTH""i "
   fi
 
   zstyle ':vcs_info:*' enable git hg svn
   zstyle ':vcs_info:*' check-for-changes true
 
-  VCS_DEFAULT_FORMAT="$VCS_CHANGESET_PREFIX%b%c%u%m"
+  VCS_DEFAULT_FORMAT="%b%c%u%m$VCS_CHANGESET_SUFFIX"
   zstyle ':vcs_info:*' formats "$VCS_DEFAULT_FORMAT"
 
   zstyle ':vcs_info:*' actionformats "%b %F{${POWERLEVEL9K_VCS_ACTIONFORMAT_FOREGROUND}}| %a%f"
