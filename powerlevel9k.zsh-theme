@@ -1560,7 +1560,7 @@ powerlevel9k_vcs_init() {
 
   VCS_CHANGESET_SUFFIX=''
   if [[ "$POWERLEVEL9K_SHOW_CHANGESET" == true ]]; then
-    VCS_CHANGESET_SUFFIX="$(print_icon 'VCS_COMMIT_ICON')%0.$POWERLEVEL9K_VCS_INTERNAL_HASH_LENGTH""i "
+    VCS_CHANGESET_SUFFIX=" $(print_icon 'VCS_COMMIT_ICON')%0.$POWERLEVEL9K_VCS_INTERNAL_HASH_LENGTH""i "
   fi
 
   zstyle ':vcs_info:*' enable git hg svn
